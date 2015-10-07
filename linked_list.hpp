@@ -1,7 +1,7 @@
 /*****************************************************************************
    Taylor Hoss
    X432Z869
-   Program #4
+   Program #6
 
    This program implements a linked list class in which a users input
    is made into a node which is inserted at the end of the list. When
@@ -26,12 +26,12 @@
 #include <cassert>
 
 //prototyping classes
-template <class Type>
-class List;
-template <class Type>
-class Iterator;
+template <class Type> class List;
+template <class Type> class Iterator;
 
-// Linked list class
+/*
+ * Linked list class
+ */
 template <class Type>
 class Linked_list
 {
@@ -91,7 +91,7 @@ void Linked_list<Type>::traverse()
 }
 
 /*
- * Now for the iterator class
+ * iterator class
  */
 
 // Iterator class
@@ -146,6 +146,7 @@ void Iterator<Type>::next()
    {
       last = position->get_link();
       position = position->get_link();
+   }
       
    assert(position != NULL);
 
