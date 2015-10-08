@@ -62,26 +62,27 @@ int main (void)
    stringList.insert_node("homemade");
 
    //starts up the iterators
-   Iterator doublePos(doubleList);
-   Iterator longPos(longList);
-   Iterator intPos(intList);
-   Iterator charPos(charList);
-   Iterator stringPos(stringList);
+   Iterator<double> doublePos(doubleList);
+   Iterator<long> longPos(longList);
+   Iterator<int> intPos(intList);
+   Iterator<char> charPos(charList);
+   Iterator<float> floatPos(floatList);
+   Iterator<string> stringPos(stringList);
 
    //printing data
    cout<<"Retrieved data:\n\n";
    cout<<"Double Data: \n";
-   doubleList.traverse();
+   doubleList.traverse(&doublePos);
    cout<<"\n\nlong Data: \n";
-   longList.traverse();
+   longList.traverse(&longPos);
    cout<<"\n\nInt Data: \n";
-   intList.traverse();
+   intList.traverse(&intPos);
    cout<<"\n\nChar Data: \n";
-   charList.traverse();
+   charList.traverse(&charPos);
    cout<<"\n\nFloat Data: \n";
-   floatList.traverse();
+   floatList.traverse(&floatPos);
    cout<<"\n\nString Data: \n";
-   stringList.traverse(); 
+   stringList.traverse(&stringPos); 
    
    return 0;
 }

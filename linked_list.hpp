@@ -39,10 +39,10 @@ class Linked_list
  public:
    Linked_list();
    bool insert_node(Type data); 
-   void traverse();
-   Node<Type> *get_tail()
+   void traverse(Iterator<Type> *iter);
+   Node<Type> *get_head()
    {
-      return tail;
+      return head;
    }
       
 };
@@ -51,7 +51,8 @@ class Linked_list
 template <class Type>
 Linked_list<Type>::Linked_list()
 {
-   head = tail = NULL;
+   head = NULL;
+   tail = NULL;
 
 }
 
@@ -65,7 +66,8 @@ bool Linked_list<Type>::insert_node(Type data)
    // If there are no entries in the linked list add it to the head.
    if (head == NULL)
    {
-      tail = head = node_ptr;
+      tail = node_ptr;
+      head = node_ptr;
    }
    else
    {
@@ -79,14 +81,13 @@ bool Linked_list<Type>::insert_node(Type data)
 
 // Go through the entire list. Call the node method to show the data.
 template <class Type>
-void Linked_list<Type>::traverse()
+void Linked_list<Type>::traverse(Iterator<Type> *iter)
 {
-   Iterator<Type> *iter;
-   iter = tail;
-   while (iter != NULL)
+   iter->set_position(tail);
+   while (iter->check_position())
    {
       iter->get();
-      iter = iter->next();
+      iter->next();
    }     
 }
 
@@ -98,13 +99,25 @@ void Linked_list<Type>::traverse()
 template <class Type>
 class Iterator
 {
-   Node<Type> *position, *last;
+   Node<Type> *position;
  public:
    Iterator();
-   Iterator(Linked_list a);
+   Iterator(Linked_list<Type> a);
    void get();
    void next();
-   bool equals(Iterator b) const;
+   void set_position(Node<Type> *ptr)
+   {
+      position = ptr;
+
+   }
+   bool check_position()
+   {
+      if(position == NULL)
+         return 0;
+      else
+         return 1;
+
+   }
       
 };
 
@@ -113,16 +126,15 @@ template <class Type>
 Iterator<Type>::Iterator()
 {
    position = NULL;
-   last = NULL;
 
 }
 
 //constructs an iterator that points to the tail of theentered list.
 template <class Type>
-Iterator<Type>::Iterator(Linked_list a)
+Iterator<Type>::Iterator(Linked_list<Type> a)
 {
-   position = a.get_tail();
-   last = NULL;
+   position = a.get_head();
+   cout<<"initial position: "<<position<<endl;
 
 }
 
@@ -140,22 +152,8 @@ void Iterator<Type>::get()
 template <class Type>
 void Iterator<Type>::next()
 {
-   if (position == NULL)
-      position = last;
-   else
-   {
-      last = position->get_link();
+   if (position != NULL)
       position = position->get_link();
-   }
-      
-   assert(position != NULL);
-
-}
-
-//compares two iterators
-template <class Type>
-bool Iterator<Type>::equals(Iterator b) const
-{
-   return position == b.position;
+   cout<<"\nnext position: "<<position<<endl;
 
 }
